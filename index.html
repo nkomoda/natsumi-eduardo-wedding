@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Our Wedding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Jost:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Palettes: three Hawaiian colorways. Pick one with `palette:` in the WEDDING block.
+   lagoon: sea-glass water, deep lagoon ink, hibiscus coral lettering, antique-gold hairlines.
+   ocean:  soft turquoise water, deep ocean-navy ink, ocean-blue links, coral lettering, gold hairlines.
+   sand:   warm beach sand, ocean-teal actions, coral lettering, gold hairlines.
+   sunset: soft blush evening sky, deep Pacific navy ink, coral lettering, gold hairlines; golden hibiscus and sea-mint plumeria.
+   Layout idea: a title card with the couple's photo beside their names, then sections on a two-column grid (label left, content right) that stacks on phones. */
+:root, :root[data-palette="lagoon"] {
+  --paper: #D6EBE6;  --surface: #FBFEFD; --ink: #133A3F; --muted: #4A6A6B; --line: #B6D7D0;
+  --accent: #0E7176; --coral: #D4604B;   --gold: #A8843A; --gold-line: #C6A257;
+  --hib: #EEA494;    --plum: #F1D58C;    --leafc: #98CCB3;
+  --display: "Bodoni Moda", "Noto Serif JP", "Didot", "Georgia", serif;
+  --body: "Jost", "Noto Sans JP", "Helvetica Neue", Arial, sans-serif;
+  color-scheme: light;
+}
+:root[data-palette="ocean"] {
+  --paper: #CFE9EC;  --surface: #FBFEFE; --ink: #12344A; --muted: #48666F; --line: #AFD3D8;
+  --accent: #127180; --coral: #E96F58;   --gold: #A8843A; --gold-line: #C6A257;
+  --hib: #EFA393;    --plum: #F1D58C;    --leafc: #9FCDB6;
+}
+:root[data-palette="sand"] {
+  --paper: #F3EADC;  --surface: #FFFDF9; --ink: #1F373C; --muted: #66706B; --line: #E0D2BC;
+  --accent: #10707A; --coral: #CC5A44;   --gold: #A5813A; --gold-line: #C4A05A;
+  --hib: #F0AE9E;    --plum: #F1D997;    --leafc: #B3D4BF;
+}
+:root[data-palette="sunset"] {
+  --paper: #F6E5DC;  --surface: #FFFBF8; --ink: #1D3245; --muted: #6A6670; --line: #EACDC0;
+  --accent: #1B6C7E; --coral: #C9584A;   --gold: #A7823A; --gold-line: #C6A15A;
+  --hib: #E9C27F;    --plum: #9FCBC0;    --leafc: #8FC0B0;   /* golden-hour hibiscus, sea-mint plumeria, teal-sage leaf: cool and gold notes to balance the blush */
+}
+/* Single light theme on purpose: the page stays bright even when a guest's phone is in dark mode. */
+html { color-scheme: light; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); font-weight: 300; font-size: 17px; line-height: 1.65; }
+:lang(ja) body, html:lang(ja) body { line-height: 1.85; }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 2px; }
+h1, h2, h3 { font-family: var(--display); font-weight: 400; text-wrap: balance; margin: 0; }
+
+.note { background: var(--gold); color: #fff; font-size: 14px; padding: 10px 16px; display: flex; gap: 12px; justify-content: center; align-items: center; flex-wrap: wrap; }
+.note button { background: transparent; border: 1px solid #fff; color: #fff; font: inherit; padding: 2px 10px; cursor: pointer; border-radius: 2px; }
+
+nav { position: sticky; top: 0; z-index: 5; background: color-mix(in srgb, var(--paper) 92%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+.navin { max-width: 1000px; margin: 0 auto; padding: 0 16px; display: flex; align-items: center; gap: 20px; }
+nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 24px; overflow-x: auto; flex: 1; min-width: 0; scrollbar-width: none; }
+nav a { display: block; padding: 14px 0; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); text-decoration: none; white-space: nowrap; }
+nav a:hover { color: var(--ink); }
+.lang { display: flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; flex-shrink: 0; background: var(--surface); }
+.lang button { font: inherit; font-size: 13px; border: 0; background: transparent; color: var(--muted); padding: 4px 12px; border-radius: 999px; cursor: pointer; }
+.lang button:hover { color: var(--ink); }
+.lang button[aria-pressed="true"] { background: var(--accent); color: #fff; box-shadow: inset 0 0 0 1px var(--gold-line); }
+
+.hero { max-width: 1140px; margin: 0 auto; padding: 64px 20px 80px; display: grid; grid-template-columns: minmax(0, 11fr) minmax(0, 9fr); gap: clamp(40px, 6vw, 88px); align-items: center; }
+.photo { aspect-ratio: 3 / 4; width: 100%; overflow: hidden; background: var(--surface); position: relative; }
+.photo { outline: 1px solid var(--gold); outline-offset: 12px; }
+.photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.photo.empty { display: grid; place-items: center; text-align: center; color: var(--muted); font-size: 13px; letter-spacing: .24em; text-transform: uppercase; }
+.photo.empty::before { content: ""; position: absolute; inset: 0; border: 1px solid var(--line); pointer-events: none; }
+.photo.empty span::before { content: ""; display: block; width: 40px; height: 1px; background: var(--gold-line); margin: 0 auto 16px; }
+.intro .kicker { font-size: 13px; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); }
+.intro h1 { font-size: clamp(44px, 7vw, 80px); line-height: 1.05; margin: 20px 0 18px; }
+.intro h1 .amp { font-style: italic; color: var(--coral); display: block; font-size: .5em; margin: 6px 0; }
+.intro .when { font-family: var(--display); font-size: clamp(20px, 2.6vw, 25px); }
+.intro .where { color: var(--muted); margin-top: 4px; }
+.rule { width: 64px; height: 1px; background: var(--gold-line); margin: 28px 0; border: 0; }
+.countdown { display: flex; gap: 28px; flex-wrap: wrap; font-variant-numeric: tabular-nums; }
+.countdown div { min-width: 64px; }
+.countdown b { display: block; font-family: var(--display); font-weight: 400; font-size: 34px; line-height: 1.1; }
+.countdown span { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+@media (max-width: 720px) {
+  .photo { outline: none; }
+  .hero { grid-template-columns: 1fr; gap: 36px; padding: 0 0 56px; text-align: center; }
+  .photo { aspect-ratio: 4 / 5; }
+  .intro { padding: 0 20px; }
+  .rule { margin: 24px auto; }
+  .countdown { justify-content: center; }
+}
+
+main { max-width: 1000px; margin: 0 auto; padding: 0 20px 40px; }
+section { display: grid; grid-template-columns: 220px 1fr; gap: 32px; padding: 56px 0; border-top: 1px solid var(--line); scroll-margin-top: 56px; }
+section > header h2 { font-size: 32px; line-height: 1.15; }
+section > header h2::after { content: ""; display: block; width: 36px; height: 1px; background: var(--gold-line); margin-top: 14px; }
+@media (max-width: 720px) { section > header h2::after { margin-top: 10px; } }
+section > header p { color: var(--muted); font-size: 14px; margin: 8px 0 0; }
+.body { max-width: 640px; }
+@media (max-width: 720px) { section { grid-template-columns: 1fr; gap: 20px; padding: 44px 0; } }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-top: 2px solid var(--gold-line); padding: 22px; border-radius: 3px; display: flex; flex-direction: column; gap: 6px; }
+.card .tag { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--coral); font-weight: 500; }
+.card h3 { font-size: 22px; }
+.card .meta { color: var(--muted); font-size: 15px; }
+.card .links { margin-top: auto; padding-top: 10px; display: flex; gap: 16px; flex-wrap: wrap; font-size: 15px; }
+.card dl { margin: 6px 0 0; display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; font-size: 15px; }
+.card dt { color: var(--muted); }
+.card dd { margin: 0; }
+
+.day-h { font-size: 22px; margin: 0 0 4px; }
+.timeline { list-style: none; margin: 0 0 28px; padding: 0; }
+.timeline:last-child { margin-bottom: 0; }
+.timeline li { display: grid; grid-template-columns: 96px 1fr; gap: 20px; padding: 16px 0; border-bottom: 1px dashed var(--line); }
+.timeline li:last-child { border-bottom: 0; }
+.timeline time { font-family: var(--display); font-size: 20px; color: var(--accent); font-variant-numeric: tabular-nums; }
+.timeline strong { font-weight: 500; display: block; }
+.timeline .loc { color: var(--muted); font-size: 15px; display: block; }
+
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+.facts h3 { font-family: var(--body); font-size: 13px; letter-spacing: .16em; text-transform: uppercase; color: var(--coral); font-weight: 500; margin-bottom: 4px; }
+.facts p { margin: 0; }
+
+/* Botanicals: tone-on-tone hibiscus, plumeria and monstera silhouettes behind the content */
+body { position: relative; overflow-x: hidden; }
+.hero, main, footer { position: relative; z-index: 1; }
+.botanicals { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0;
+  --fill: var(--hib); --leaf: var(--leafc); --plumf: var(--plum); --gap: var(--paper); }
+.botanicals svg { position: absolute; overflow: visible; }
+.botanicals svg.alt { --fill: var(--leaf); }
+.botanicals svg.plum { --fill: var(--plumf); }
+.flora path, .flora circle { fill: var(--fill); stroke: var(--gap); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.flora .v { fill: none; stroke: var(--gap); stroke-width: 2; }
+.flora .s { fill: none; stroke: var(--fill); stroke-width: 1.6; }
+.flora .cut { fill: none; stroke: var(--gap); stroke-width: 7; }
+.flora .stem { fill: none; stroke: var(--fill); stroke-width: 5; }
+.flora .vein { fill: var(--gap); stroke: none; }
+.flora .eye { fill: var(--gap); stroke: none; }
+.b1 { width: 360px; top: 70px; right: -110px; transform: rotate(18deg); }
+.b2 { width: 230px; top: 30%; left: -70px; transform: rotate(-12deg); }
+.b3 { width: 300px; top: 22%; right: -120px; transform: rotate(-28deg); }
+.b4 { width: 150px; top: 52%; right: 3%; transform: rotate(40deg); }
+.b5 { width: 280px; top: 62%; left: -90px; transform: rotate(160deg); }
+.b6 { width: 300px; bottom: 40px; right: -60px; transform: rotate(-8deg); }
+.b7 { width: 130px; bottom: 260px; left: 4%; transform: rotate(20deg); }
+.b8 { width: 170px; top: 44%; left: 2%; transform: rotate(-24deg); }
+@media (max-width: 720px) {
+  .b1 { width: 150px; top: 600px; right: -55px; }
+  .b2 { width: 190px; top: 23%; left: -60px; }
+  .b3 { width: 180px; top: 37%; right: -70px; }
+  .b4 { width: 110px; top: 49%; right: -12px; }
+  .b5 { width: 170px; top: 61%; left: -55px; }
+  .b6 { width: 200px; bottom: 30px; right: -50px; }
+  .b7 { width: 100px; bottom: 330px; left: -12px; }
+  .b8 { width: 130px; top: 76%; right: -40px; left: auto; }
+}
+
+/* ===== PASSCODE FEATURE (4 of 4): passcode screen styles ===== */
+.gate { position: relative; z-index: 1; min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; padding: 32px 20px; }
+.gate-lang { position: absolute; top: 16px; right: 16px; }
+.gate-card { width: 100%; max-width: 420px; background: var(--surface); border: 1px solid var(--line); border-top: 2px solid var(--gold-line); border-radius: 3px; padding: 40px 32px 32px; text-align: center; display: flex; flex-direction: column; gap: 10px; }
+.gate-card .kicker { font-size: 12px; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); }
+.gate-card h1 { font-size: 44px; line-height: 1.05; margin: 6px 0 4px; }
+.gate-card h1 .amp { display: block; font-style: italic; color: var(--coral); font-size: .5em; margin: 4px 0; }
+.gate-card p { margin: 0 0 6px; color: var(--muted); }
+.gate-card label { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); text-align: left; }
+.gate-card input { font: inherit; font-size: 18px; letter-spacing: .08em; padding: 12px 14px; border: 1px solid var(--line); border-radius: 2px; background: var(--paper); color: var(--ink); width: 100%; }
+.gate-card input:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.gate-error { color: var(--coral); font-size: 14px; text-align: left; }
+.gate-error[hidden] { display: none; }
+.gate-btn { margin-top: 6px; font: inherit; font-size: 13px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; background: var(--accent); color: #fff; border: 0; border-radius: 2px; padding: 13px 20px; cursor: pointer; }
+.gate-btn:hover { filter: brightness(1.08); }
+/* ===== END PASSCODE FEATURE (4 of 4) ===== */
+
+footer { text-align: center; padding: 48px 20px 64px; color: var(--muted); font-size: 14px; border-top: 1px solid var(--line); }
+footer .sig { font-family: var(--display); font-style: italic; font-size: 24px; color: var(--coral); margin-bottom: 8px; }
+</style>
+</head>
+<body>
+
+<div id="app"></div>
+
+<script>
+/* =====================================================================
+   FILL IN YOUR DETAILS HERE
+   Everything on the page comes from this one block.
+   - Text shown in all three languages is written as { en: "", ja: "", es: "" }.
+   - Plain text (names, addresses, phone numbers, codes) shows the same in every language.
+   - Dates are written as YYYY-MM-DD and times as 24-hour HH:MM; the page
+     formats them for each language automatically.
+   - Leave a field as "" to hide it.
+   ===================================================================== */
+const WEDDING = {
+  showTemplateNote: false,             // set to true to show the gold "this is a template" bar
+  palette: "ocean",                    // "ocean", "lagoon", "sand" or "sunset"
+
+  /* ===== PASSCODE FEATURE (1 of 4): settings ===== */
+  // Guests must type this passcode before they see the page.
+  // This is NOT the passcode itself: it's a SHA-256 fingerprint of it, so the code can't be read from the page source.
+  // Current passcode: aloha2027  (not case-sensitive; spaces at the ends are ignored)
+  // To turn the passcode off, set this to "".
+  passcodeHash: "f49e9f4e8fd2ad63ec68e2ba6db89f5fcbdb492a5c98ad2436b256699dacade4",
+  /* ===== END PASSCODE FEATURE (1 of 4) ===== */
+
+  couple: { first: "Natsumi", second: "Eduardo" },
+  photo: "/Users/natsumi/Downloads/DSC_8461.jpg",                           // e.g. "photo.jpg" once a photo is added to the site
+  dateISO: "2027-02-23T10:00:00",      // ceremony start, used for the date and countdown
+  city: { en: "Honolulu, Hawaii", ja: "ハワイ・ホノルル", es: "Honolulu, Hawaii" },
+  lastUpdated: "2026-11-16",
+
+  venues: [
+    { tag: { en: "Ceremony", ja: "挙式", es: "Ceremonia" },
+      name: "Magic Island", address: "Honolulu, HI 96815", time: "15:00",
+      mapUrl: "https://maps.app.goo.gl/ug5gzTmL2sHkuynQA",
+      },
+    { tag: { en: "Dinner", ja: "夕食", es: "Cena" },
+      name: "TBD", address: "", time: "16:30",
+      mapUrl: "",
+      }
+  ],
+
+  schedule: [
+    { date: "2027-02-23", items: [
+      { time: "14:30", title: { en: "Shuttle pickup", ja: "集合", es: "Abordaje de Autobus" }, where: "'Alohilani Hotel", detail: { en: "A shuttle bus will pick you up from the 'Alohilani hotel. Please be on time.", ja: "ビーチ行きのシャトルバスがホテルに迎えに来ます。遅れないように。", es: "Un autobús saldra del hotel 'Alohilani a esta hora. Por favor llegar a tiempo."} },
+      { time: "15:00", title: { en: "Ceremony", ja: "挙式・写真撮影", es: "Ceremonia" }, where: "Magic Island", detail: { en: "There will be no chairs to sit.", ja: "立っての式になります。", es: "" }},
+      { time: "16:10", title: { en: "Shuttle to the dinner", ja: "夕食へシャトルで移動", es: "Abordaje a la cena" },
+        where: { en: "Departs from the Magic Island", ja: "ビーチから出発", es: "Sale desde Magic Island" }, detail: "" },
+      { time: "17:00", title: { en: "Dinner", ja: "夕食", es: "Cena" },
+        where: { en: "TBD", ja: "未定", es: "Por determinar" }, detail: "" }      
+    ]}
+  ],
+
+  hotels: [
+    { tag: { en: "Room block", ja: "団体予約あり", es: "Bloque de habitaciones" },
+      name: "'Alohilani Resort Waikiki Beach", 
+      address: "2490 Kalākaua Ave, Honolulu, HI 96815",
+      dates: { en: "Blocked 2/22 - 2/24", ja: "", es: "Bloqueado 2/22 - 2/24" },
+      price: { en: "From $229 + $25 resort fee / night. Same rates apply 3 days before and after contracted dates.", ja: "1泊 $229〜 + $25リゾート料金", es: "Desde $229 + $25 tarifa del resort / noche" },
+      code: "GRPOCAMPO", 
+      bookBy: "2027-01-22(5pm HST)", 
+      bookUrl: "http://alohilaniresort.com/#/booking/step-1?promo=GRPOCAMPO&utm_source=group&utm_medium=group&utm_campaign=group", 
+      housekeepingGratuity: { en: "$2.00–$3.00 per room, per night (suggested)", ja: "1泊$2-$3", es: "$2.00–$3.00 por habitación, por noche (sugerido)" }
+    }
+  ],
+
+  stayNotes: [
+    { text: { en: "Check what's included in the resort fee.",
+            ja: "リゾート料金に含まれる内容をご確認ください。",
+            es: "Consulta qué incluye la tarifa del resort." },
+    url: "https://example.com/resort-fee",
+    link: { en: "Resort fee details", ja: "リゾートフィーの詳細", es: "Detalles de la tarifa del resort" }
+    },
+    { text: { en: "Check out events happening in the resort.",
+              ja: "リゾートでのイベントをご確認ください。",
+              es: "Consulta los eventos que tienen lugar en el complejo" },
+      url: "https://example.com/resort-event",
+      link: { en: "Resort event page", ja: "リゾートのイベントページ", es: "Página del evento en el resort" } }
+  ],
+
+  travel: [
+    { title: { en: "Nearest airport", ja: "最寄りの空港", es: "Aeropuerto más cercano" },
+      text: { en: "Daniel K. Inouye International Airport, Honolulu (HNL)",
+              ja: "ホノルル・ダニエル・K・イノウエ国際空港(HNL)",
+              es: "Daniel K. Inouye International Airport, Honolulu (HNL), a 50 min en coche." } },
+    { title: { en: "Getting here", ja: "アクセス", es: "Cómo llegar" },
+      text: { en: "About 50 min by car/Uber or a bus (W line) from the airport station to Waikiki. One standard suitcase and one smaller carry-on size bag is allowed on the bus. Luggage must be stored in front of or next to the passenger and must not block the aisle or occupy extra seats.",
+              ja: "空港から車で約50分。W-line バスで空港から40分。バスはスーツケース一つと小さなバッグ一つだけが許されます。",
+              es: "El trayecto desde la estación del aeropuerto hasta Waikiki dura unos 50 minutos en coche, Uber o autobús (línea W). En el autobús se permite llevar una maleta estándar y una pieza de equipaje de mano más pequeña. El equipaje debe colocarse frente al pasajero o a su lado, sin bloquear el pasillo ni ocupar asientos adicionales." } },
+    { title: { en: "Shuttles", ja: "シャトル", es: "Transporte" },
+      text: { en: "A shuttle from the aiport to the hotel can be requested after booking a room (a link will be provided upon confirmation.) $29 per person.",
+              ja: "空港からホテルまでのシャトルバスも購入できます。一人$29",
+              es: "Se puede solicitar un servicio de traslado desde el aeropuerto hasta el hotel tras la confirmación de la reserva (se facilitará un enlace al realizar dicha confirmación). El costo es de $29 por persona." } },
+    { title: { en: "Parking", ja: "駐車場", es: "Estacionamiento" },
+      text: { en: "Discounted to $25.00 self-parking / $45.00 valet per day.",
+              ja: "車の駐車は、一日$25。バレットパーキング1日＄45。",
+              es: "Tarifa reducida: $25.00 por estacionamiento por cuenta propia / $45.00 por servicio de valet, por día." } }
+  ],
+
+  dressCode: { en: "We highly recommend Aloha dress for women and Aloha shirt for men. The ceremony is outdoors on sand, so you may want to skip stilettos. It will be hot!",
+               ja: "女性にはアロハドレス、男性にはアロハシャツを強くおすすめします。挙式は砂浜で行われますので、細いハイヒールの靴は避けたほうがよいでしょう。当日は暖かくなることが予想されます。",
+               es: "Recomendamos el vestido estilo hawaiano para las mujeres y la camisa hawaiana para los hombres. La ceremonia va a ser al aire libre, sobre la arena, por lo que quizás sea mejor evitar los tacones. ¡Hará calor!" },
+  registry: { text: "", url: "", label: "" }   // registry hidden; fill in text to show it again
+};
+/* ===================================================================== */
+
+const UI = {
+  en: { /* PASSCODE FEATURE (2 of 4): gate text */ gateTitle: "Welcome", gatePrompt: "Please enter the passcode from your invitation.", gateLabel: "Passcode", gateButton: "Enter", gateError: "That passcode doesn\u2019t match. Please check your invitation and try again.",
+        kicker: "Together with their families", and: "and", day: "The day", schedule: "Schedule", stay: "Where to stay", travel: "Travel", details: "Details",
+        local: "Times are local.", bookEarly: "Book early, especially if you're planning pre- or post-blocked nights.", days: "Days", hours: "Hours", minutes: "Minutes", married: "Just married",
+        dates: "Dates", rate: "Rate", code: "Group code", bookBy: "Book by", housekeepingGratuity: "Housekeeping Gratuity", map: "Open in maps", book: "Book a room",
+        dress: "Dress code", registry: "Registry", updated: "Last updated", photo: "Your photo here", locale: "en-GB" },
+  ja: {  /* PASSCODE FEATURE (2 of 4): gate text */ gateTitle: "ようこそ", gatePrompt: "招待状に記載のパスコードを入力してください。", gateLabel: "パスコード", gateButton: "入力", gateError: "パスコードが一致しません。招待状をご確認のうえ、もう一度お試しください。",
+        kicker: "結婚式のご案内", and: "&", day: "挙式・夕食", schedule: "スケジュール", stay: "宿泊", travel: "アクセス", details: "その他",
+        local: "時間はすべて現地時間です。", bookEarly: "繁忙期のため、お早めにご予約ください。", days: "日", hours: "時間", minutes: "分", married: "結婚しました",
+        dates: "日にち", rate: "料金", code: "予約コード", bookBy: "予約期限", housekeepingGratuity: "ハウスキーピングチップ", map: "地図で見る", book: "予約する",
+        dress: "ドレスコード", registry: "ギフト", updated: "最終更新", photo: "写真", locale: "ja-JP" },
+  es: {  /* PASSCODE FEATURE (2 of 4): gate text */ gateTitle: "Bienvenidos", gatePrompt: "Introduce el código de acceso de tu invitación.", gateLabel: "Código de acceso", gateButton: "Entrar", gateError: "El código no coincide. Revisa tu invitación e inténtalo de nuevo.",
+        kicker: "Junto a sus familias", and: "y", day: "El día", schedule: "Programa", stay: "Alojamiento", travel: "Cómo llegar", details: "Detalles",
+        local: "Horario local.", bookEarly: "Reserva pronto: es temporada alta.", days: "Días", hours: "Horas", minutes: "Minutos", married: "¡Recién casados!",
+        dates: "Fechas", rate: "Tarifa", code: "Código de grupo", bookBy: "Reservar antes del", housekeepingGratuity: "Gratificatión de limpieza", map: "Ver en el mapa", book: "Reservar habitación",
+        dress: "Código de vestir", registry: "Lista de regalos", updated: "Última actualización", photo: "Tu foto aquí", locale: "es-ES" }
+};
+const LANGS = [["en", "English"], ["ja", "日本語"], ["es", "Español"]];
+
+let lang = "en";
+try { const s = localStorage.getItem("wedding-lang"); if (UI[s]) lang = s; } catch (e) {}
+
+const W = WEDDING;
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const t = v => (v && typeof v === "object") ? (v[lang] ?? v.en ?? "") : (v ?? "");
+const T = k => UI[lang][k];
+const fmtDate = (iso, withWeekday = true) => {
+  const d = new Date(iso.length === 10 ? iso + "T12:00:00" : iso);
+  if (isNaN(d)) return esc(iso);
+  return new Intl.DateTimeFormat(T("locale"), { weekday: withWeekday ? "long" : undefined, day: "numeric", month: "long", year: "numeric" }).format(d);
+};
+const fmtDay = iso => new Intl.DateTimeFormat(T("locale"), { weekday: "long", day: "numeric", month: "long" }).format(new Date(iso + "T12:00:00"));
+const fmtTime = hm => {
+  const [h, m] = hm.split(":").map(Number);
+  if (isNaN(h)) return esc(hm);
+  if (lang === "en") return `${h % 12 || 12}:${String(m).padStart(2, "0")} ${h < 12 ? "am" : "pm"}`;
+  return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
+};
+const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+
+const sec = (id, title, sub, inner) => `
+  <section id="${id}" aria-labelledby="${id}-h">
+    <header><h2 id="${id}-h">${esc(title)}</h2>${sub ? `<p>${esc(sub)}</p>` : ""}</header>
+    <div class="body">${inner}</div>
+  </section>`;
+
+/* ---- Botanical silhouettes (aloha-print style) ---- */
+const rot = (n, f) => Array.from({ length: n }, (_, i) => f(i * 360 / n, i)).join("");
+const f1 = n => n.toFixed(1);
+const pt = (r, deg) => { const a = deg * Math.PI / 180; return [r * Math.sin(a), -r * Math.cos(a)]; };
+const P2 = p => p.map(f1).join(" ");
+
+/* Petal: narrow at the centre, opening into a wide fan with a ruffled outer edge */
+const petal = () => {
+  const rim = [[56, -41], [69, -22], [73, -2], [70, 19], [56, 41]];
+  let d = `M0 0 C${P2(pt(22, -16))} ${P2(pt(48, -44))} ${P2(pt(...rim[0]))}`;
+  for (let i = 1; i < rim.length; i++) {
+    const [r0, a0] = rim[i - 1], [r1, a1] = rim[i];
+    d += ` Q${P2(pt(Math.max(r0, r1) + 10, (a0 + a1) / 2))} ${P2(pt(r1, a1))}`;
+  }
+  return d + ` C${P2(pt(48, 44))} ${P2(pt(22, 16))} 0 0 Z`;
+};
+/* Veins: thin tapered streaks radiating from the centre of each petal */
+const streak = (deg, len, bend) => {
+  const p0 = pt(10, deg), p1 = pt(10 + len, deg + bend), m = pt(10 + len * .45, deg + bend * .4);
+  const n = [Math.cos(deg * Math.PI / 180), Math.sin(deg * Math.PI / 180)], w = 1.9;
+  return `<path class="vein" d="M${P2(p0)} Q${f1(m[0] + n[0] * w)} ${f1(m[1] + n[1] * w)} ${P2(p1)} Q${f1(m[0] - n[0] * w)} ${f1(m[1] - n[1] * w)} ${P2(p0)} Z"/>`;
+};
+const PETAL_D = petal();
+const PETAL_G = (i) => `<path d="${PETAL_D}"/>` +
+  [[-26, 30, -6], [-13, 40, -3], [0, 46, 0], [13, 40, 3], [26, 31, 6]].map(([d, l, b]) => streak(d, l * [1, .9, 1.05, .95, 1][i], b)).join("");
+
+/* Stamen: a thick column tapering as it arcs up and out past the petals, with dotted filaments along its upper part */
+const STAMEN = (() => {
+  const P = [[0, 0], [0, -36], [18, -64], [46, -86]];
+  const at = t => { const u = 1 - t; return [0, 1].map(k => u*u*u*P[0][k] + 3*u*u*t*P[1][k] + 3*u*t*t*P[2][k] + t*t*t*P[3][k]); };
+  const tan = t => { const u = 1 - t; return [0, 1].map(k => 3*u*u*(P[1][k]-P[0][k]) + 6*u*t*(P[2][k]-P[1][k]) + 3*t*t*(P[3][k]-P[2][k])); };
+  const left = [], right = [];
+  for (let i = 0; i <= 20; i++) {
+    const t = i / 20, [x, y] = at(t), [dx, dy] = tan(t), L = Math.hypot(dx, dy), w = 4.2 * Math.pow(1 - t, 1.2) + 1.6;
+    left.push([x - dy / L * w, y + dx / L * w]); right.push([x + dy / L * w, y - dx / L * w]);
+  }
+  const col = "M" + left.map(P2).join(" L") + " L" + right.reverse().map(P2).join(" L") + " Z";
+  let fil = "", dots = "";
+  [[.5, 1], [.57, -1], [.64, 1], [.71, -1], [.78, 1], [.85, -1], [.91, 1]].forEach(([t, side], i) => {
+    const [x, y] = at(t), [dx, dy] = tan(t), L = Math.hypot(dx, dy), len = 7 + i * .3;
+    const ex = x + (-dy / L * side * .85 + dx / L * .5) * len, ey = y + (dx / L * side * .85 + dy / L * .5) * len;
+    fil += `<path class="s" d="M${f1(x)} ${f1(y)} L${f1(ex)} ${f1(ey)}"/>`;
+    dots += `<circle cx="${f1(ex)}" cy="${f1(ey)}" r="2.8" stroke-width="1.2"/>`;
+  });
+  const [tx, ty] = at(1);
+  [[-2, -6], [6, -1.5]].forEach(([ox, oy]) => {
+    fil += `<path class="s" d="M${f1(tx)} ${f1(ty)} L${f1(tx + ox)} ${f1(ty + oy)}"/>`;
+    dots += `<circle cx="${f1(tx + ox)}" cy="${f1(ty + oy)}" r="3.4" stroke-width="1.2"/>`;
+  });
+  return fil + `<path d="${col}" stroke-width="1.8"/>` + dots;
+})();
+
+const hibiscusG = () => `${rot(5, (a, i) => `<g transform="rotate(${a + [0, 4, -3, 5, -4][i]}) scale(${[1, .95, 1.05, .97, 1.02][i]})">${PETAL_G(i)}</g>`)}${STAMEN}`;
+const plumeriaG = () => `${rot(5, a => `<path transform="rotate(${a})" d="M0 0 C -18 -14 -20 -44 -2 -56 C 14 -52 20 -26 0 0 Z"/>`)}<circle class="eye" r="6"/>`;
+const monsteraG = () => {
+  let cuts = "";
+  for (let i = 1; i <= 6; i++) {
+    const y = 78 - i * 24, mx = 1.2 + (78 - y) * 0.058;
+    cuts += `<path class="cut" d="M${f1(mx - 9)} ${y} L -130 ${y - 34}"/><path class="cut" d="M${f1(mx + 9)} ${y - 6} L 130 ${y - 40}"/>`;
+  }
+  return `<g transform="translate(0 -25)"><path class="stem" d="M0 98 C -4 116 -10 132 -18 146"/>
+    <path d="M0 100 C -70 92 -102 22 -74 -38 C -54 -82 -4 -96 18 -82 C 70 -72 102 -12 82 40 C 66 80 30 100 0 100 Z" stroke="none"/>
+    ${cuts}<path class="v" stroke-width="3" d="M0 96 C 4 40 8 -20 12 -76"/></g>`;
+};
+const leafG = () => `<path d="M0 0 C 16 -20 16 -52 0 -76 C -16 -52 -16 -20 0 0 Z"/><path class="v" d="M0 -4 C 1 -30 1 -50 0 -66"/>`;
+
+const svgOf = (g, vb, c) => `<svg class="flora ${c}" viewBox="${vb}">${g}</svg>`;
+const BOTANICALS = `<div class="botanicals" aria-hidden="true">
+  ${svgOf(hibiscusG(), "-95 -122 218 212", "b1")}${svgOf(monsteraG(), "-110 -125 220 250", "b2 alt")}${svgOf(hibiscusG(), "-95 -122 218 212", "b3")}
+  ${svgOf(plumeriaG(), "-62 -62 124 124", "b4 plum")}${svgOf(hibiscusG(), "-95 -122 218 212", "b5")}${svgOf(hibiscusG(), "-95 -122 218 212", "b6")}
+  ${svgOf(plumeriaG(), "-62 -62 124 124", "b7 plum")}${svgOf(hibiscusG(), "-95 -122 218 212", "b8")}</div>`;
+
+let noteHidden = false;
+
+/* ===== PASSCODE FEATURE (3 of 4): checking the code and drawing the passcode screen ===== */
+const GATE_KEY = "wedding-unlocked";
+let unlocked = !W.passcodeHash;
+try { if (W.passcodeHash && localStorage.getItem(GATE_KEY) === W.passcodeHash) unlocked = true; } catch (e) {}
+
+async function sha256(text) {
+  const bytes = new TextEncoder().encode(text);
+  const digest = await crypto.subtle.digest("SHA-256", bytes);
+  return [...new Uint8Array(digest)].map(b => b.toString(16).padStart(2, "0")).join("");
+}
+
+function renderGate(errorShown = false) {
+  document.title = `${W.couple.first} & ${W.couple.second}`;
+  document.getElementById("app").innerHTML = `${BOTANICALS}
+    <div class="gate">
+      <div class="lang gate-lang" role="group" aria-label="Language">${LANGS.map(([code, label]) =>
+        `<button type="button" data-lang="${code}" lang="${code}" aria-pressed="${code === lang}">${label}</button>`).join("")}</div>
+      <form class="gate-card" id="gate-form" novalidate>
+        <div class="kicker">${esc(T("gateTitle"))}</div>
+        <h1>${esc(W.couple.first)}<span class="amp">${esc(T("and"))}</span>${esc(W.couple.second)}</h1>
+        <p>${esc(T("gatePrompt"))}</p>
+        <label for="gate-code">${esc(T("gateLabel"))}</label>
+        <input id="gate-code" name="code" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" required>
+        <p class="gate-error" id="gate-error" role="alert"${errorShown ? "" : " hidden"}>${esc(T("gateError"))}</p>
+        <button type="submit" class="gate-btn">${esc(T("gateButton"))}</button>
+      </form>
+    </div>`;
+  document.querySelectorAll(".gate-lang button").forEach(b => b.addEventListener("click", () => {
+    lang = b.dataset.lang;
+    try { localStorage.setItem("wedding-lang", lang); } catch (e) {}
+    document.documentElement.lang = lang;
+    renderGate();
+  }));
+  const input = document.getElementById("gate-code");
+  input.focus();
+  document.getElementById("gate-form").addEventListener("submit", async e => {
+    e.preventDefault();
+    const hash = await sha256(input.value.trim().toLowerCase());
+    if (hash === W.passcodeHash) {
+      unlocked = true;
+      try { localStorage.setItem(GATE_KEY, hash); } catch (err) {}  // remember this browser so guests only type it once
+      render();
+      window.scrollTo(0, 0);
+    } else {
+      document.getElementById("gate-error").hidden = false;
+      input.select();
+    }
+  });
+}
+/* ===== END PASSCODE FEATURE (3 of 4) ===== */
+
+
+function render() {
+  if (!unlocked) { document.documentElement.lang = lang; document.documentElement.dataset.palette = W.palette || "lagoon"; renderGate(); return; }  // PASSCODE FEATURE: show the passcode screen until the right code is entered  
+  document.documentElement.lang = lang;
+  document.documentElement.dataset.palette = W.palette || "lagoon";
+  document.title = `${W.couple.first} & ${W.couple.second}`;
+  const dateText = cap(fmtDate(W.dateISO));
+
+  const nav = [
+    ["day", T("day"), W.venues.length],
+    ["schedule", T("schedule"), W.schedule.length],
+    ["stay", T("stay"), W.hotels.length],
+    ["travel", T("travel"), W.travel.length],
+    ["details", T("details"), t(W.dressCode) || t(W.registry.text)]
+  ].filter(n => n[2]);
+
+  let html = BOTANICALS;
+  if (W.showTemplateNote && !noteHidden) html += `<div class="note" id="tnote">This is a template with example details. Edit the WEDDING block in the page to make it yours. <button type="button" id="tclose">Hide</button></div>`;
+
+  html += `<nav aria-label="Sections"><div class="navin">
+    <ul>${nav.map(n => `<li><a href="#${n[0]}">${esc(n[1])}</a></li>`).join("")}</ul>
+    <div class="lang" role="group" aria-label="Language">${LANGS.map(([code, label]) =>
+      `<button type="button" id="lang-${code}" data-lang="${code}" lang="${code}" aria-pressed="${code === lang}">${label}</button>`).join("")}</div>
+  </div></nav>`;
+
+  html += `<div class="hero">
+    <div class="photo${W.photo ? "" : " empty"}">${W.photo
+      ? `<img src="${esc(W.photo)}" alt="${esc(W.couple.first)} &amp; ${esc(W.couple.second)}">`
+      : `<span>${esc(T("photo"))}</span>`}</div>
+    <div class="intro">
+      <div class="kicker">${esc(T("kicker"))}</div>
+      <h1>${esc(W.couple.first)}<span class="amp">${esc(T("and"))}</span>${esc(W.couple.second)}</h1>
+      <div class="when">${esc(dateText)}</div>
+      <div class="where">${esc(t(W.city))}</div>
+      <hr class="rule">
+      <div class="countdown" id="cd"></div>
+    </div>
+  </div><main>`;
+
+  if (W.venues.length) html += sec("day", T("day"), dateText, `<div class="cards">${W.venues.map(v => `
+    <div class="card">
+      <div class="tag">${esc(t(v.tag))}</div>
+      <h3>${esc(v.name)}</h3>
+      <div class="meta">${fmtTime(v.time)}</div>
+      <div>${esc(v.address)}</div>
+      ${t(v.note) ? `<div class="meta">${esc(t(v.note))}</div>` : ""}
+      ${v.mapUrl ? `<div class="links"><a href="${esc(v.mapUrl)}">${esc(T("map"))}</a></div>` : ""}
+    </div>`).join("")}</div>`);
+
+  if (W.schedule.length) html += sec("schedule", T("schedule"), T("local"), W.schedule.map(d => `
+    <h3 class="day-h">${esc(cap(fmtDay(d.date)))}</h3>
+    <ol class="timeline">${d.items.map(i => `
+      <li><time>${fmtTime(i.time)}</time><div><strong>${esc(t(i.title))}</strong>${t(i.where) ? `<span class="loc">${esc(t(i.where))}</span>` : ""}${t(i.detail) ? `<span class="loc">${esc(t(i.detail))}</span>` : ""}</div></li>`).join("")}
+    </ol>`).join(""));
+
+  if (W.hotels.length) html += sec("stay", T("stay"), T("bookEarly"), `<div class="cards">${W.hotels.map(h => `
+    <div class="card">
+      <div class="tag">${esc(t(h.tag))}</div>
+      <h3>${esc(h.name)}</h3>
+      <div class="meta">${esc(h.address)}</div>
+      <dl>
+        ${t(h.dates) ? `<dt>${esc(T("dates"))}</dt><dd>${esc(t(h.dates))}</dd>` : ""}
+        ${t(h.price) ? `<dt>${esc(T("rate"))}</dt><dd>${esc(t(h.price))}</dd>` : ""}
+        ${h.code ? `<dt>${esc(T("code"))}</dt><dd><strong style="font-weight:500">${esc(h.code)}</strong></dd>` : ""}
+        ${h.bookBy ? `<dt>${esc(T("bookBy"))}</dt><dd>${esc(fmtDate(h.bookBy, false))}</dd>` : ""}
+        ${t(h.housekeepingGratuity) ? `<dt>${esc(T("housekeepingGratuity"))}</dt><dd>${esc(t(h.housekeepingGratuity))}</dd>` : ""}
+      </dl>
+      ${h.bookUrl ? `<div class="links"><a href="${esc(h.bookUrl)}">${esc(T("book"))}</a></div>` : ""}
+    </div>`).join("")}</div>${(W.stayNotes || []).filter(n => t(n.text)).length ? `<div class="stay-notes">${W.stayNotes.filter(n => t(n.text)).map(n => `<p class="stay-note">${esc(t(n.text))}${n.url ? ` <a href="${esc(n.url)}">${esc(t(n.link) || n.url)}</a>` : ""}</p>`).join("")}</div>` : ""}`);
+
+  if (W.travel.length) html += sec("travel", T("travel"), "", `<div class="facts">${W.travel.map(x => `<div><h3>${esc(t(x.title))}</h3><p>${esc(t(x.text))}</p></div>`).join("")}</div>`);
+
+  if (t(W.dressCode) || t(W.registry.text)) html += sec("details", T("details"), "", `<div class="facts">
+    ${t(W.dressCode) ? `<div><h3>${esc(T("dress"))}</h3><p>${esc(t(W.dressCode))}</p></div>` : ""}
+    ${t(W.registry.text) ? `<div><h3>${esc(T("registry"))}</h3><p>${esc(t(W.registry.text))}</p>${W.registry.url ? `<p style="margin-top:8px"><a href="${esc(W.registry.url)}">${esc(t(W.registry.label))}</a></p>` : ""}</div>` : ""}
+  </div>`);
+
+  html += `</main><footer><div class="sig">${esc(W.couple.first)} &amp; ${esc(W.couple.second)}</div>${esc(dateText)} · ${esc(t(W.city))}${W.lastUpdated ? `<div style="margin-top:6px">${esc(T("updated"))}: ${esc(fmtDate(W.lastUpdated, false))}</div>` : ""}</footer>`;
+
+  document.getElementById("app").innerHTML = html;
+
+  const tc = document.getElementById("tclose");
+  if (tc) tc.addEventListener("click", () => { noteHidden = true; document.getElementById("tnote").remove(); });
+  document.querySelectorAll(".lang button").forEach(b => b.addEventListener("click", () => {
+    lang = b.dataset.lang;
+    try { localStorage.setItem("wedding-lang", lang); } catch (e) {}
+    const y = window.scrollY;
+    render();
+    window.scrollTo(0, y);
+    const nb = document.getElementById("lang-" + lang); if (nb) nb.focus();
+  }));
+  tick();
+}
+
+function tick() {
+  const el = document.getElementById("cd");
+  if (!el) return;
+  const diff = new Date(W.dateISO) - new Date();
+  if (isNaN(diff)) { el.remove(); return; }
+  if (diff <= 0) { el.innerHTML = `<div><b>${esc(T("married"))}</b></div>`; return; }
+  const d = Math.floor(diff / 864e5), h = Math.floor(diff / 36e5) % 24, m = Math.floor(diff / 6e4) % 60;
+  el.innerHTML = [[d, T("days")], [h, T("hours")], [m, T("minutes")]].map(([n, l]) => `<div><b>${n}</b><span>${esc(l)}</span></div>`).join("");
+}
+
+render();
+setInterval(tick, 30000);
+
+</script>
+</body>
+</html>
