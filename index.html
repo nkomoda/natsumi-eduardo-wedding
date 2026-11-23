@@ -93,6 +93,7 @@ section > header h2 { font-size: 32px; line-height: 1.15; }
 section > header h2::after { content: ""; display: block; width: 36px; height: 1px; background: var(--gold-line); margin-top: 14px; }
 @media (max-width: 720px) { section > header h2::after { margin-top: 10px; } }
 section > header p { color: var(--muted); font-size: 14px; margin: 8px 0 0; }
+section > header p + p { margin-top: 2px; }
 .body { max-width: 640px; }
 @media (max-width: 720px) { section { grid-template-columns: 1fr; gap: 20px; padding: 44px 0; } }
 
@@ -204,28 +205,18 @@ const WEDDING = {
   photo: "photo.jpg",                           // e.g. "photo.jpg" once a photo is added to the site
   dateISO: "2027-02-23T10:00:00",      // ceremony start, used for the date and countdown
   city: { en: "Honolulu, Hawaii", ja: "ハワイ・ホノルル", es: "Honolulu, Hawaii" },
-  lastUpdated: "2026-11-16",
+  lastUpdated: "2026-11-22",
 
   venues: [
     { tag: { en: "Ceremony", ja: "挙式", es: "Ceremonia" },
-      name: "Magic Island", address: "Honolulu, HI 96815", time: "15:00",
-      mapUrl: "https://maps.app.goo.gl/ug5gzTmL2sHkuynQA",
+      name: "Magic Island", address: "Honolulu, HI 96815", time: "14:45",
+      mapUrl: "https://maps.app.goo.gl/RgxgJEL4ZqPWeCHz8?g_st=ic",
+      note: { en: "Meet at the parking lot.", ja: "立っての式になります。", es: "Nos Veremos en el estacionamiento."}
       },
     { tag: { en: "Dinner", ja: "夕食", es: "Cena" },
       name: "TBD", address: "", time: "16:30",
       mapUrl: "",
       }
-  ],
-
-  schedule: [
-    { date: "2027-02-23", items: [
-      { time: "14:30", title: { en: "Shuttle pickup", ja: "集合", es: "Abordaje de Autobus" }, where: "'Alohilani Hotel", detail: { en: "A shuttle bus will pick you up from the 'Alohilani hotel. Please be on time.", ja: "ビーチ行きのシャトルバスがホテルに迎えに来ます。遅れないように。", es: "Un autobús saldra del hotel 'Alohilani a esta hora. Por favor llegar a tiempo."} },
-      { time: "15:00", title: { en: "Ceremony", ja: "挙式・写真撮影", es: "Ceremonia" }, where: "Magic Island", detail: { en: "There will be no chairs to sit.", ja: "立っての式になります。", es: "" }},
-      { time: "16:10", title: { en: "Shuttle to the dinner", ja: "夕食へシャトルで移動", es: "Abordaje a la cena" },
-        where: { en: "Departs from the Magic Island", ja: "ビーチから出発", es: "Sale desde Magic Island" }, detail: "" },
-      { time: "17:00", title: { en: "Dinner", ja: "夕食", es: "Cena" },
-        where: { en: "TBD", ja: "未定", es: "Por determinar" }, detail: "" }      
-    ]}
   ],
 
   hotels: [
@@ -283,17 +274,17 @@ const WEDDING = {
 
 const UI = {
   en: { /* PASSCODE FEATURE (2 of 4): gate text */ gateTitle: "Welcome", gatePrompt: "Please enter the passcode from your invitation.", gateLabel: "Passcode", gateButton: "Enter", gateError: "That passcode doesn\u2019t match. Please check your invitation and try again.",
-        kicker: "Together with their families", and: "and", day: "The day", schedule: "Schedule", stay: "Where to stay", travel: "Travel", details: "Details",
+        kicker: "Together with their families", and: "and", day: "The day", stay: "Where to stay", travel: "Travel", details: "Details",
         local: "Times are local.", bookEarly: "Book early, especially if you're planning pre- or post-blocked nights. Feel free to find another place to stay nearby.", days: "Days", hours: "Hours", minutes: "Minutes", married: "Just married",
         dates: "Dates", rate: "Rate", code: "Group code", bookBy: "Book by", housekeepingGratuity: "Housekeeping Gratuity", map: "Open in maps", book: "Book a room",
         dress: "Dress code", registry: "Registry", updated: "Last updated", photo: "Your photo here", locale: "en-GB" },
   ja: {  /* PASSCODE FEATURE (2 of 4): gate text */ gateTitle: "ようこそ", gatePrompt: "招待状に記載のパスコードを入力してください。", gateLabel: "パスコード", gateButton: "入力", gateError: "パスコードが一致しません。招待状をご確認のうえ、もう一度お試しください。",
-        kicker: "結婚式のご案内", and: "&", day: "挙式・夕食", schedule: "スケジュール", stay: "宿泊", travel: "アクセス", details: "その他",
+        kicker: "結婚式のご案内", and: "&", day: "挙式・夕食", stay: "宿泊", travel: "アクセス", details: "その他",
         local: "時間はすべて現地時間です。", bookEarly: "繁忙期のため、お早めにご予約ください。", days: "日", hours: "時間", minutes: "分", married: "結婚しました",
         dates: "日にち", rate: "料金", code: "予約コード", bookBy: "予約期限", housekeepingGratuity: "ハウスキーピングチップ", map: "地図で見る", book: "予約する",
         dress: "ドレスコード", registry: "ギフト", updated: "最終更新", photo: "写真", locale: "ja-JP" },
   es: {  /* PASSCODE FEATURE (2 of 4): gate text */ gateTitle: "Bienvenidos", gatePrompt: "Introduce el código de acceso de tu invitación.", gateLabel: "Código de acceso", gateButton: "Entrar", gateError: "El código no coincide. Revisa tu invitación e inténtalo de nuevo.",
-        kicker: "Junto a sus familias", and: "y", day: "El día", schedule: "Programa", stay: "Alojamiento", travel: "Cómo llegar", details: "Detalles",
+        kicker: "Junto a sus familias", and: "y", day: "El día", stay: "Alojamiento", travel: "Cómo llegar", details: "Detalles",
         local: "Horario local.", bookEarly: "Reserva pronto: es temporada alta.", days: "Días", hours: "Horas", minutes: "Minutos", married: "¡Recién casados!",
         dates: "Fechas", rate: "Tarifa", code: "Código de grupo", bookBy: "Reservar antes del", housekeepingGratuity: "Gratificatión de limpieza", map: "Ver en el mapa", book: "Reservar habitación",
         dress: "Código de vestir", registry: "Lista de regalos", updated: "Última actualización", photo: "Tu foto aquí", locale: "es-ES" }
@@ -323,7 +314,7 @@ const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
 
 const sec = (id, title, sub, inner) => `
   <section id="${id}" aria-labelledby="${id}-h">
-    <header><h2 id="${id}-h">${esc(title)}</h2>${sub ? `<p>${esc(sub)}</p>` : ""}</header>
+    <header><h2 id="${id}-h">${esc(title)}</h2>${[].concat(sub || []).filter(Boolean).map(line => `<p>${esc(line)}</p>`).join("")}</header>
     <div class="body">${inner}</div>
   </section>`;
 
@@ -462,7 +453,7 @@ function render() {
 
   const nav = [
     ["day", T("day"), W.venues.length],
-    ["schedule", T("schedule"), W.schedule.length],
+    // ["schedule", T("schedule"), W.schedule.length],
     ["stay", T("stay"), W.hotels.length],
     ["travel", T("travel"), W.travel.length],
     ["details", T("details"), t(W.dressCode) || t(W.registry.text)]
@@ -491,7 +482,7 @@ function render() {
     </div>
   </div><main>`;
 
-  if (W.venues.length) html += sec("day", T("day"), dateText, `<div class="cards">${W.venues.map(v => `
+  if (W.venues.length) html += sec("day", T("day"), [dateText, T("local")], `<div class="cards">${W.venues.map(v => `
     <div class="card">
       <div class="tag">${esc(t(v.tag))}</div>
       <h3>${esc(v.name)}</h3>
@@ -501,11 +492,11 @@ function render() {
       ${v.mapUrl ? `<div class="links"><a href="${esc(v.mapUrl)}">${esc(T("map"))}</a></div>` : ""}
     </div>`).join("")}</div>`);
 
-  if (W.schedule.length) html += sec("schedule", T("schedule"), T("local"), W.schedule.map(d => `
-    <h3 class="day-h">${esc(cap(fmtDay(d.date)))}</h3>
-    <ol class="timeline">${d.items.map(i => `
-      <li><time>${fmtTime(i.time)}</time><div><strong>${esc(t(i.title))}</strong>${t(i.where) ? `<span class="loc">${esc(t(i.where))}</span>` : ""}${t(i.detail) ? `<span class="loc">${esc(t(i.detail))}</span>` : ""}</div></li>`).join("")}
-    </ol>`).join(""));
+  // if (W.schedule.length) html += sec("schedule", T("schedule"), T("local"), W.schedule.map(d => `
+  //   <h3 class="day-h">${esc(cap(fmtDay(d.date)))}</h3>
+  //   <ol class="timeline">${d.items.map(i => `
+  //     <li><time>${fmtTime(i.time)}</time><div><strong>${esc(t(i.title))}</strong>${t(i.where) ? `<span class="loc">${esc(t(i.where))}</span>` : ""}${t(i.detail) ? `<span class="loc">${esc(t(i.detail))}</span>` : ""}</div></li>`).join("")}
+  //   </ol>`).join(""));
 
   if (W.hotels.length) html += sec("stay", T("stay"), T("bookEarly"), `<div class="cards">${W.hotels.map(h => `
     <div class="card">
